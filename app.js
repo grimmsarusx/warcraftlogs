@@ -2,7 +2,7 @@ const request = require('request');
 const cron = require('node-cron');
 const _ = require('underscore');
 const config = require(__dirname+'/config.json');
-const wclurl = `https://www.warcraftlogs.com/v1/reports/guild/${config.guild}/${config.realm}/${config.region}?api_key=${config.apikey}`;
+const wclurl = `https://www.classic.warcraftlogs.com/v1/reports/guild/${config.guild}/${config.realm}/${config.region}?api_key=${config.apikey}`;
 let temp = [];
 
 let cronJob = cron.schedule('*/15 * * * * *', () => {
@@ -19,7 +19,7 @@ function update(body) {
     if (JSON.stringify(temp).indexOf(id) == -1) {
         var title = _.last(body).title;
         var owner = _.last(body).owner;
-        var string = `New log: ${title} (${owner}) -- https://www.warcraftlogs.com/reports/${id}`;
+        var string = `New log: ${title} (${owner}) -- https://www.classic.warcraftlogs.com/reports/${id}`;
 
         temp.push(id);
         request.post(config.discordURL).form({
